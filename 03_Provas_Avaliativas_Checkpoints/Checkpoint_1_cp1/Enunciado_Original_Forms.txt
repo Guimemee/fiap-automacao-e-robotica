@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Automação e Robótica Industrial
+Turma 5ECS • Ano 2026
+Checkpoint 01: Partida de Motores, Diagramas de Potência e Comandos Elétricos Industriais
+
+ENUNCIADO ORIGINAL:
+Dimensionar o circuito de força e comando para partida de motor de indução trifásico (MIT) de 15 CV, 380 V, 60 Hz, rendimento η = 89% e fp = 0,85. Comparar as correntes de pico e conjugado de partida entre chave de partida direta e partida estrela-triângulo (Y-Δ).

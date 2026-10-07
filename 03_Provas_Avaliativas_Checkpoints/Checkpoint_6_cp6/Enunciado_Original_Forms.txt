@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Automação e Robótica Industrial
+Turma 5ECS • Ano 2026
+Checkpoint 06: Robótica Colaborativa, Células Flexíveis e Segurança ISO/TS 15066
+
+ENUNCIADO ORIGINAL:
+Dimensionar os limites de velocidade e desaceleração de segurança para um robô colaborativo (Cobot) atuando em espaço compartilhado homem-máquina conforme os requisitos da norma técnica ISO/TS 15066 (Power and Force Limiting - PFL). Calcular a distância de parada mínima e a força de contato transitório permissível para a região do antebraço humano com massa equivalente do manipulador m = 25 kg.

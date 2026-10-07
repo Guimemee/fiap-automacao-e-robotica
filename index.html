@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIAP • Automação e Robótica Industrial | Turma 5ECS • 2026</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0f141c;
+      --bg-card: #182232;
+      --bg-surface: #243247;
+      --border: #334862;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --primary: #f59e0b;
+      --secondary: #d97706;
+      --accent: #06b6d4;
+      --radius: 12px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    [id] { scroll-margin-top: 95px; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 14, 23, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 10px 24px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-row-1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-row-1 .brand-fiap {
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .header-row-2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .turma-tag {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-repo-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-repo-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero-banner {
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-item {
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+    }
+
+    .nav-item:hover, .nav-item:focus {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .cp-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      background: rgba(255,255,255,0.03);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .box-content {
+      padding: 20px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+
+    .formula-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .formula-latex {
+      font-size: 1.2rem;
+      color: #ffffff;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .symbolab-container {
+      margin-bottom: 28px;
+    }
+
+    .symbolab-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .step-card:hover {
+      transform: translateX(4px);
+      border-color: var(--primary);
+    }
+
+    .step-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .step-content p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .plot-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .plot-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .plot-img-container {
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      background: #00000022;
+    }
+
+    .plot-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 32px 24px;
+      text-align: center;
+      margin-top: 60px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 8px 16px;
+      }
+      .header-row-1 {
+        font-size: 0.95rem;
+      }
+      .turma-tag {
+        font-size: 0.78rem;
+        padding: 2px 8px;
+      }
+      .btn-repo-top {
+        font-size: 0.78rem;
+        padding: 4px 10px;
+      }
+      body {
+        padding-top: 75px;
+      }
+      .container {
+        padding: 16px;
+      }
+      .cp-section {
+        padding: 20px 16px;
+      }
+      .section-title {
+        font-size: 1.25rem;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="header-row-1">
+        <span class="brand-fiap">FIAP</span> • Engenharia da Computação
+      </div>
+      <div class="header-row-2">
+        <span class="turma-tag">TURMA 5ECS • 2026</span>
+        <a href="https://github.com/Guimemee/fiap-automacao-e-robotica" class="btn-repo-top" target="_blank" rel="noopener">
+          <span>Ver Repositório</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <img src="card_technologies.svg" alt="FIAP • Automação e Robótica Industrial - 5ECS 2026" />
+    </div>
+
+    <div class="metrics-grid">
+      
+        <div class="metric-card">
+          <div class="metric-label">GRAUS DE LIBERDADE (DOF)</div>
+          <div class="metric-val">6 EIXOS ROBÓTICOS</div>
+          <div class="metric-sub">Manipuladores Articulados Industriais</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">REDUÇÃO DE CORRENTE</div>
+          <div class="metric-val">66.7% EM ESTRELA</div>
+          <div class="metric-sub">Comutação Estrela-Triângulo Y-Δ</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">CONTROLE DE VELOCIDADE</div>
+          <div class="metric-val">PWM V/F CONSTANTE</div>
+          <div class="metric-sub">Inversores de Frequência Escalares</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">SEGURANÇA COLABORATIVA</div>
+          <div class="metric-val">ISO/TS 15066</div>
+          <div class="metric-sub">Monitoramento de Potência e Força</div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs" aria-label="Navegação de Checkpoints">
+      <a href="#cp1" class="nav-item">CP1</a><a href="#cp2" class="nav-item">CP2</a><a href="#cp3" class="nav-item">CP3</a><a href="#cp4" class="nav-item">CP4</a><a href="#cp5" class="nav-item">CP5</a><a href="#cp6" class="nav-item">CP6</a>
+    </nav>
+
+    
+      <section id="cp1" class="cp-section">
+        <div class="section-badge">CHECKPOINT 01 • 5ECS 2026</div>
+        <h2 class="section-title">Partida de Motores, Diagramas de Potência e Comandos Elétricos Industriais</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp1')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp1" class="box-content">
+            <p>Dimensionar o circuito de força e comando para partida de motor de indução trifásico (MIT) de 15 CV, 380 V, 60 Hz, rendimento η = 89% e fp = 0,85. Comparar as correntes de pico e conjugado de partida entre chave de partida direta e partida estrela-triângulo (Y-Δ).</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$I_n = \frac{P}{\sqrt{3} \cdot V_L \cdot \eta \cdot \cos\varphi}, \quad I_{p(Y)} = \frac{1}{3} I_{p(\Delta)}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Conversão de Potência e Cálculo da Corrente Nominal</span>
+              </div>
+              <div class="step-content">
+                <p>Convertendo 15 CV para Watts: P = 15 \times 735,5 = 11.032,5 \text{ W}. Aplicando a fórmula trifásica: I_n = \frac{11.032,5}{\sqrt{3} \times 380 \times 0,89 \times 0,85} \approx 22,1 \text{ A}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Análise da Partida Direta (Plena Carga)</span>
+              </div>
+              <div class="step-content">
+                <p>Considerando relação típica de corrente de partida I_p/I_n = 7,2: I_{p(\Delta)} = 7,2 \times 22,1 = 159,12 \text{ A}. Esse pico elevado pode causar queda de tensão severa no barramento industrial.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Dimensionamento da Partida Estrela-Triângulo (Y-Δ)</span>
+              </div>
+              <div class="step-content">
+                <p>Na configuração estrela (Y), a tensão de fase é V_F = V_L / \sqrt{3}. A corrente de fase reduz para 1/\sqrt{3} e a corrente de linha reduz por fator de 3: I_{p(Y)} = \frac{159,12}{3} \approx 53,04 \text{ A}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Conjugado Mecânico de Partida</span>
+              </div>
+              <div class="step-content">
+                <p>Como o torque é proporcional ao quadrado da tensão aplicada (C \propto V^2), temos C_{(Y)} = \frac{1}{3} C_{(\Delta)}. Portanto, a partida deve ocorrer sem carga mecânica nominal acoplada.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Especificação dos Contatores e Relé de Sobrecarga</span>
+              </div>
+              <div class="step-content">
+                <p>Contator K1 e K2 dimensionados para I_c = 0,58 \times I_n = 12,82 \text{ A}. Contator de estrela K3 para 0,33 \times I_n = 7,3 \text{ A}. Relé térmico ajustado na faixa de 18-25 A.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_1_cp1/grafico_resolucao.png" alt="Gráfico Partida de Motores, Diagramas de Potência e Comandos Elétricos Industriais" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp2" class="cp-section">
+        <div class="section-badge">CHECKPOINT 02 • 5ECS 2026</div>
+        <h2 class="section-title">Cinemática de Manipuladores Robóticos e Parâmetros Denavit-Hartenberg (DH)</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp2')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp2" class="box-content">
+            <p>Determinar o modelo cinemático direto de um manipulador robótico industrial planar com 2 graus de liberdade (2R) com elos l1 = 0,5 m e l2 = 0,4 m. Calcular a matriz de transformação homogênea global T_2^0 e a posição cartesiana (x, y) do efetuador para as variáveis de junta θ1 = 30° e θ2 = 45°.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$T_i^{i-1} = \begin{bmatrix} \cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\theta_i\sin\alpha_i & a_i\cos\theta_i \\ \sin\theta_i & \cos\theta_i\cos\alpha_i & -\cos\theta_i\sin\alpha_i & a_i\sin\theta_i \\ 0 & \sin\alpha_i & \cos\alpha_i & d_i \\ 0 & 0 & 0 & 1 \end{bmatrix}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Tabela de Parâmetros de Denavit-Hartenberg</span>
+              </div>
+              <div class="step-content">
+                <p>Para o robô planar 2R: Junta 1: \theta_1, d_1 = 0, a_1 = 0,5\text{ m}, \alpha_1 = 0^\circ. Junta 2: \theta_2, d_2 = 0, a_2 = 0,4\text{ m}, \alpha_2 = 0^\circ.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Matrizes de Transformação Individual</span>
+              </div>
+              <div class="step-content">
+                <p>Calculando T_1^0 para a base à junta 1 e T_2^1 da junta 1 ao efetuador com rotação pura em Z e translação a_i.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Multiplicação das Matrizes Homogêneas</span>
+              </div>
+              <div class="step-content">
+                <p>A matriz global é T_2^0 = T_1^0 \cdot T_2^1. As coordenadas do efetuador são: x = a_1 \cos\theta_1 + a_2 \cos(\theta_1 + \theta_2) e y = a_1 \sin\theta_1 + a_2 \sin(\theta_1 + \theta_2).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Avaliação Numérica dos Ângulos</span>
+              </div>
+              <div class="step-content">
+                <p>Substituindo \theta_1 = 30^\circ e \theta_2 = 45^\circ (\theta_1 + \theta_2 = 75^\circ): x = 0,5 \cos(30^\circ) + 0,4 \cos(75^\circ) = 0,5(0,866) + 0,4(0,2588) = 0,433 + 0,1035 = 0,5365\text{ m}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Posição do Efetuador e Espaço de Trabalho</span>
+              </div>
+              <div class="step-content">
+                <p>Calculando y: y = 0,5 \sin(30^\circ) + 0,4 \sin(75^\circ) = 0,5(0,5) + 0,4(0,9659) = 0,25 + 0,3864 = 0,6364\text{ m}. Efetuador em P = (0,5365; 0,6364)\text{ m}, dentro do raio de alcance R_{max} = 0,9\text{ m}.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_2_cp2/grafico_resolucao.png" alt="Gráfico Cinemática de Manipuladores Robóticos e Parâmetros Denavit-Hartenberg (DH)" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp3" class="cp-section">
+        <div class="section-badge">CHECKPOINT 03 • 5ECS 2026</div>
+        <h2 class="section-title">Acionamento Eletrônico com Soft-Starters e Inversores de Frequência</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp3')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp3" class="box-content">
+            <p>Analisar o comportamento do conjugado e da tensão em regime de controle escalar V/f constante para um inversor de frequência alimentando um motor trifásico de 4 polos em frequências de operação f = [15, 30, 45, 60, 75] Hz. Calcular as velocidades síncronas correspondentes e verificar o efeito do enfraquecimento de campo acima de 60 Hz.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$N_s = \frac{120 \cdot f}{P}, \quad \frac{V_1}{f_1} = \frac{V_n}{f_n} = \text{cte} \implies C_m \approx \text{constante}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Princípio da Relação V/f Constante</span>
+              </div>
+              <div class="step-content">
+                <p>Para manter o fluxo magnético constante no entreferro (\Phi \propto V/f), a tensão eficaz entregue pelo inversor deve variar linearmente com a frequência de modulação PWM até a frequência base de 60 Hz.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Cálculo das Velocidades Síncronas</span>
+              </div>
+              <div class="step-content">
+                <p>Para motor de 4 polos (P = 4): N_s = \frac{120 \times f}{4} = 30 \times f. Para f = [15, 30, 45, 60, 75] Hz: N_s = [450, 900, 1350, 1800, 2250] RPM.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Determinação das Tensões de Linha</span>
+              </div>
+              <div class="step-content">
+                <p>Com V_n = 380\text{ V} e f_n = 60\text{ Hz}, temos a razão k = 380/60 = 6,33\text{ V/Hz}. Para 15 Hz \rightarrow 95\text{ V}; 30 Hz \rightarrow 190\text{ V}; 45 Hz \rightarrow 285\text{ V}; 60 Hz \rightarrow 380\text{ V}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Região de Enfraquecimento de Campo (Field Weakening)</span>
+              </div>
+              <div class="step-content">
+                <p>Acima de 60 Hz, a tensão atinge o teto do barramento DC (V_{max} = 380\text{ V}). Para f = 75\text{ Hz}, V permanece 380 V. A relação V/f cai para 5,06 V/Hz e o fluxo magnético se reduz por \Phi \propto 1/f.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Análise de Conjugado e Potência Mecânica</span>
+              </div>
+              <div class="step-content">
+                <p>Na região sub-nominal (0 a 60 Hz), o conjugado nominal é constante (torque constante). Acima de 60 Hz, o conjugado decai com 1/f e o torque máximo com 1/f^2, mantendo a potência nominal constante (potência constante).</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_3_cp3/grafico_resolucao.png" alt="Gráfico Acionamento Eletrônico com Soft-Starters e Inversores de Frequência" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp4" class="cp-section">
+        <div class="section-badge">CHECKPOINT 04 • 5ECS 2026</div>
+        <h2 class="section-title">Análise Técnico-Econômica de Automação e Custo Operacional Homem vs. Robô</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp4')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp4" class="box-content">
+            <p>Realizar o estudo de viabilidade técnico-financeira para implantação de uma célula robótica de soldagem/paletização substituindo uma operação manual com 3 operadores por turno em 2 turnos diários. O investimento inicial do robô é CAPEX = R$ 450.000,00 com custo de manutenção/energia OPEX = R$ 3.500,00/mês. O custo de cada operador é R$ 6.200,00/mês. Determinar o Payback Simples e o VPL para 5 anos a taxa TMA = 12% a.a.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\text{Payback} = \frac{\text{CAPEX}}{\Delta\text{OPEX}_{\text{mensal}}}, \quad \text{VPL} = -I_0 + \sum_{t=1}^{n} \frac{\text{Fluxo}_t}{(1 + \text{TMA})^t}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Levantamento de Custos Operacionais Manuais Atuais</span>
+              </div>
+              <div class="step-content">
+                <p>Operação com 6 operadores no total (3 por turno \times 2 turnos): Custo mensal mão de obra = 6 \times R\$ 6.200,00 = R\$ 37.200,00/mês. Custo anual = 12 \times 37.200 = R\$ 446.400,00/ano.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Custos Operacionais da Célula Robótica</span>
+              </div>
+              <div class="step-content">
+                <p>OPEX robô = R\$ 3.500,00/mês. Custo anual robô = 12 \times 3.500 = R\$ 42.000,00/ano. Economia bruta mensal = 37.200 - 3.500 = R\$ 33.700,00/mês (\Delta\text{OPEX} anual = R\$ 404.400,00/ano).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Cálculo do Payback Simples</span>
+              </div>
+              <div class="step-content">
+                <p>Payback = \frac{\text{CAPEX}}{\Delta\text{OPEX}_{\text{mensal}}} = \frac{450.000}{33.700} \approx 13,35 \text{ meses} (\approx 1,11 \text{ anos}).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Cálculo do Valor Presente Líquido (VPL) a 12% a.a.</span>
+              </div>
+              <div class="step-content">
+                <p>Fator de anuidade para n=5 e i=12%: a_{5\rceil 12\%} = \frac{1 - (1,12)^{-5}}{0,12} \approx 3,6048. VPL = -450.000 + (404.400 \times 3,6048) = -450.000 + 1.457.781 = R\$ 1.007.781,00.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão de Engenharia e Ganho de OEE</span>
+              </div>
+              <div class="step-content">
+                <p>O projeto apresenta excelente atratividade financeira com retorno do investimento em menos de 14 meses e ganho adicional estimado de 18% em disponibilidade e qualidade da produção (OEE).</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_4_cp4/grafico_resolucao.png" alt="Gráfico Análise Técnico-Econômica de Automação e Custo Operacional Homem vs. Robô" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp5" class="cp-section">
+        <div class="section-badge">CHECKPOINT 05 • 5ECS 2026</div>
+        <h2 class="section-title">Planejamento de Trajetórias no Espaço das Juntas e Cartesiano</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp5')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp5" class="box-content">
+            <p>Projetar uma trajetória suave de junta para um manipulador robótico utilizando polinômio de interpolação cúbica q(t) = a0 + a1*t + a2*t^2 + a3*t^3. A junta deve mover-se de q0 = 10° para qf = 70° em tempo total tf = 3,0 segundos, partindo e terminando em repouso (velocidades inicial e final nulas). Determinar a velocidade e aceleração máximas.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$q(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3, \quad a_2 = \frac{3(q_f - q_0)}{t_f^2}, \quad a_3 = -\frac{2(q_f - q_0)}{t_f^3}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Condições de Contorno de Posição e Velocidade</span>
+              </div>
+              <div class="step-content">
+                <p>Temos q(0) = q_0 = 10^\circ, q(t_f) = q_f = 70^\circ, \dot{q}(0) = 0 e \dot{q}(t_f) = 0. Tempo total t_f = 3\text{ s}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Determinação dos Coeficientes Polinomiais</span>
+              </div>
+              <div class="step-content">
+                <p>De q(0) = a_0 \implies a_0 = 10. De \dot{q}(0) = a_1 \implies a_1 = 0. Das condições finais: a_2 = \frac{3(70 - 10)}{3^2} = \frac{180}{9} = 20^\circ/\text{s}^2. E a_3 = \frac{-2(60)}{27} = -\frac{40}{9} \approx -4,444^\circ/\text{s}^3.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Equação Completa da Trajetória de Junta</span>
+              </div>
+              <div class="step-content">
+                <p>Posição: q(t) = 10 + 20 t^2 - 4,444 t^3. Velocidade: \dot{q}(t) = 40 t - 13,333 t^2. Aceleração: \ddot{q}(t) = 40 - 26,667 t.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Cálculo da Velocidade Máxima</span>
+              </div>
+              <div class="step-content">
+                <p>A velocidade máxima ocorre quando \ddot{q}(t) = 0 \implies t = 40 / 26,667 = 1,5\text{ s} (exatamente na metade da trajetória). \dot{q}_{max} = 40(1,5) - 13,333(2,25) = 60 - 30 = 30^\circ/\text{s}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Análise de Aceleração e Continuidade</span>
+              </div>
+              <div class="step-content">
+                <p>Aceleração máxima ocorre no instante inicial t=0 (\ddot{q}_{max} = +40^\circ/\text{s}^2) e desaceleração máxima em t=3 s (\ddot{q}_{min} = -40^\circ/\text{s}^2). Trajetória contínua em C^1 e C^2 garantindo suavidade mecânica.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_5_cp5/grafico_resolucao.png" alt="Gráfico Planejamento de Trajetórias no Espaço das Juntas e Cartesiano" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp6" class="cp-section">
+        <div class="section-badge">CHECKPOINT 06 • 5ECS 2026</div>
+        <h2 class="section-title">Robótica Colaborativa, Células Flexíveis e Segurança ISO/TS 15066</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp6')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp6" class="box-content">
+            <p>Dimensionar os limites de velocidade e desaceleração de segurança para um robô colaborativo (Cobot) atuando em espaço compartilhado homem-máquina conforme os requisitos da norma técnica ISO/TS 15066 (Power and Force Limiting - PFL). Calcular a distância de parada mínima e a força de contato transitório permissível para a região do antebraço humano com massa equivalente do manipulador m = 25 kg.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$S_p = v \cdot T_r + \frac{v^2}{2a} + C, \quad F = v \cdot \sqrt{k \cdot \mu_{\text{red}}}, \quad \mu_{\text{red}} = \frac{m_R \cdot m_H}{m_R + m_H}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Princípios da Norma ISO/TS 15066 (PFL)</span>
+              </div>
+              <div class="step-content">
+                <p>A norma estabelece 4 modos de colaboração: Parada monitorada segura, Guia manual, Monitoramento de velocidade/separação e Limitação de potência e força. No modo PFL, contatos físicos são tolerados desde que abaixo dos limiares de dor biomecânica.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Massa Reduzida do Sistema de Impacto</span>
+              </div>
+              <div class="step-content">
+                <p>Para antebraço humano (m_H = 2,2\text{ kg}) e robô com carga útil (m_R = 25\text{ kg}): \mu = \frac{25 \times 2,2}{25 + 2,2} = \frac{55}{27,2} \approx 2,022\text{ kg}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Limite de Força de Contato Transitório</span>
+              </div>
+              <div class="step-content">
+                <p>O limiar permissível de força para contato quase-estático no braço é F_{max} = 140\text{ N} e rigidez elástica superficial de k = 40\text{ N/mm} = 40.000\text{ N/m}. A velocidade máxima de aproximação é v_{max} = \frac{F_{max}}{\sqrt{k \cdot \mu}} = \frac{140}{\sqrt{40000 \times 2,022}} = \frac{140}{284,4} \approx 0,492\text{ m/s} (492 mm/s).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Distância de Separação de Segurança (EN ISO 13855)</span>
+              </div>
+              <div class="step-content">
+                <p>Considerando tempo de reação do sistema de visão/parada T_r = 0,1\text{ s}, desaceleração de parada a = 2,5\text{ m/s}^2 e margem intrínseca C = 0,1\text{ m}: S = (0,492 \times 0,1) + \frac{0,492^2}{2 \times 2,5} + 0,1 = 0,0492 + 0,0484 + 0,1 = 0,1976\text{ m} (\approx 200 mm).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Validação e Certificação de Célula Colaborativa</span>
+              </div>
+              <div class="step-content">
+                <p>Configuração de scanner laser de área com zona de alerta em 500 mm (redução para 250 mm/s) e zona de parada em 200 mm, assegurando conformidade de nível SIL 2 / PL d.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_6_cp6/grafico_resolucao.png" alt="Gráfico Robótica Colaborativa, Células Flexíveis e Segurança ISO/TS 15066" loading="lazy" />
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p><strong>FIAP • Faculdade de Informática e Administração Paulista</strong></p>
+    <p>Bacharelado em Engenharia da Computação • Turma 5ECS (2026) • Desafio: Smart Industry & Startups (Exoesqueleto Assistivo & Manufatura)</p>
+    <p>Acervo mantido por <a href="https://github.com/Guimemee" target="_blank" rel="noopener">Guilherme Macário da Silva (@Guimemee)</a></p>
+  </footer>
+
+  <script>
+    function copyText(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText || el.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Enunciado copiado com sucesso para a área de transferência!');
+        }).catch(err => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+
+      function fallbackCopy(val) {
+        const ta = document.createElement('textarea');
+        ta.value = val;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Enunciado copiado!');
+      }
+    }
+  </script>
+</body>
+</html>

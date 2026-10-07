@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Automação e Robótica Industrial
+Turma 5ECS • Ano 2026
+Checkpoint 05: Planejamento de Trajetórias no Espaço das Juntas e Cartesiano
+
+ENUNCIADO ORIGINAL:
+Projetar uma trajetória suave de junta para um manipulador robótico utilizando polinômio de interpolação cúbica q(t) = a0 + a1*t + a2*t^2 + a3*t^3. A junta deve mover-se de q0 = 10° para qf = 70° em tempo total tf = 3,0 segundos, partindo e terminando em repouso (velocidades inicial e final nulas). Determinar a velocidade e aceleração máximas.

@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Automação e Robótica Industrial
+Turma 5ECS • Ano 2026
+Checkpoint 03: Acionamento Eletrônico com Soft-Starters e Inversores de Frequência
+
+ENUNCIADO ORIGINAL:
+Analisar o comportamento do conjugado e da tensão em regime de controle escalar V/f constante para um inversor de frequência alimentando um motor trifásico de 4 polos em frequências de operação f = [15, 30, 45, 60, 75] Hz. Calcular as velocidades síncronas correspondentes e verificar o efeito do enfraquecimento de campo acima de 60 Hz.
